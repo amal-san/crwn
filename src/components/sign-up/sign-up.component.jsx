@@ -33,9 +33,6 @@ const SignUp = () => {
 
             const { user } = await auth.createUserWithEmailAndPassword(email, password)
 
-            console.log(user)
-            console.log(displayName)
-
             await createUserProfileDocument(user,{displayName})
 
             setUserDetails(defaultState)
