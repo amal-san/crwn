@@ -8,12 +8,13 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action';
+import { selectCurrentUser } from './redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
+import CheckoutPage from './pages/checkout/checkout.component';
 
 
 
 const App = (props) => {
-
-
 
   let unSubscribeFromAuth = null
 
@@ -42,14 +43,19 @@ const App = (props) => {
         <Route exact path='/' component={HomePage}/>
         <Route path='/shop' component={ShopPage}/>
         <Route path='/sign-in' component={SignInAndSignUpPage}/>
+        <Route path='/checkout' component={CheckoutPage}/>        
       </Switch>
     </div>
   );
 }
 
 
+const mapStateToProps = createStructuredSelector({
+  currentUser:selectCurrentUser
+})
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null,mapDispatchToProps) (App);
+export default connect(mapStateToProps,mapDispatchToProps) (App);
